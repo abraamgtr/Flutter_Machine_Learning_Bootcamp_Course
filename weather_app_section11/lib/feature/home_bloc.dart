@@ -1,15 +1,21 @@
-import 'dart:async';
+import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
-part 'home_event.dart';
-part 'home_state.dart';
+import 'package:weather_app_section11/feature/home_event.dart';
+import 'package:weather_app_section11/feature/home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeInitial()) {
+  HomeBloc(HomeState initialState) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) {
-      // TODO: implement event handler
+      return emit.forEach<HomeState>(
+        event.applyAsync(currentState: state, bloc: this),
+        onData: (state) => state,
+        onError: (error, stackTrace) {
+          developer.log('$error',
+              name: 'HomeBloc', error: error, stackTrace: stackTrace);
+          return ErrorHomeState(error.toString());
+        },
+      );
     });
   }
 }
