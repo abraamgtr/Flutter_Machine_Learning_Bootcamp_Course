@@ -1,45 +1,21 @@
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
-double? translateX(
-  double x,
-  Size canvasSize,
-  Size imageSize,
-  InputImageRotation rotation,
-) {
-  switch (rotation) {
-    case InputImageRotation.rotation90deg:
-      return x *
-          canvasSize.width /
-          (Platform.isIOS ? imageSize.width : imageSize.height);
-    case InputImageRotation.rotation270deg:
-      return canvasSize.width -
-          x *
-              canvasSize.width /
-              (Platform.isIOS ? imageSize.width : imageSize.height);
-    default:
-      return x *
-          canvasSize.width /
-          (Platform.isIOS ? imageSize.width : imageSize.height);
+Future<String> getAssetPath(String asset) async {
+  final path = await getLocalPath(asset);
+  await Directory(dirname(path)).create(recursive: true);
+  final file = File(path);
+  if (!await file.exists()) {
+    final byteData = await rootBundle.load(asset);
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
   }
+  return file.path;
 }
 
-double translateY(
-  double y,
-  Size canvasSize,
-  Size imageSize,
-  InputImageRotation rotation,
-) {
-  switch (rotation) {
-    case InputImageRotation.rotation90deg:
-    case InputImageRotation.rotation270deg:
-      return y *
-          canvasSize.height /
-          (Platform.isIOS ? imageSize.height : imageSize.width);
-    case InputImageRotation.rotation0deg:
-    case InputImageRotation.rotation180deg:
-      return y * canvasSize.height / imageSize.height;
-  }
+Future<String> getLocalPath(String path) async {
+  return '${(await getApplicationSupportDirectory()).path}/$path';
 }
