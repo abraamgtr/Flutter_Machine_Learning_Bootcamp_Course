@@ -91,7 +91,7 @@ class _CameraViewState extends State<CameraView> {
                     child: widget.customPaint,
                   ),
           ),
-          _backButton(),
+          //_backButton(),
           _switchLiveCameraToggle(),
           _detectionViewModeToggle(),
           _zoomControl(),
