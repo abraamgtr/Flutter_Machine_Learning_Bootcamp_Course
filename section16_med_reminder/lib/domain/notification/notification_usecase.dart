@@ -1,15 +1,14 @@
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:section16_med_reminder/data/Notification/notification_datasource.dart';
 import 'package:section16_med_reminder/data/Notification/notification_dto.dart';
 import 'package:section16_med_reminder/domain/notification/notification_entity.dart';
-import 'package:section16_med_reminder/main.dart';
 
 abstract class NotificationUseCase {
   Future<void>? initialize();
   Future<void> getMedicineNotifications();
+  Future<void> getBactriumNotifications();
+  Future<void> getHealerNotifications();
   Future<void> scheduleNotification(
       {required NotificationEntity notificationEntity});
   NotificationDataSourceImpl _notificationDataSourceImpl =
@@ -63,5 +62,17 @@ class NotificationUsecaseImpl extends NotificationUseCase {
         NotificationDTO.fromJson(notificationEntity.toJson());
     await _notificationDataSourceImpl.scheduleNotification(
         notificationDTO: notificationData);
+  }
+
+  @override
+  Future<void> getBactriumNotifications() {
+    // TODO: implement getBactriumNotifications
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> getHealerNotifications() {
+    // TODO: implement getHealerNotifications
+    throw UnimplementedError();
   }
 }

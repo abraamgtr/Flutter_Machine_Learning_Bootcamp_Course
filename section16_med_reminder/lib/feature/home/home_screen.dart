@@ -1,13 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:ffi';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:section16_med_reminder/Utils/AppColor.dart';
-import 'package:section16_med_reminder/domain/notification/notification_entity.dart';
 import 'package:section16_med_reminder/domain/notification/notification_usecase.dart';
 import 'package:section16_med_reminder/feature/home/index.dart';
 
@@ -171,105 +166,6 @@ class HomeScreenState extends State<HomeScreen> {
             child: CircularProgressIndicator(),
           );
         });
-  }
-
-  void _load() {
-    widget._homeBloc.add(LoadHomeEvent());
-  }
-
-  _mainWidget(BuildContext context) {
-    SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(12.0, 60.0, 12.0, 0.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100.0),
-                    child: Image.asset(
-                      "assets/images/user.jpg",
-                      scale: 25,
-                      fit: BoxFit.cover,
-                    )),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                "Hello, Joanna",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(children: [
-                    TextSpan(
-                        text: "Your medicines for",
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)),
-                    TextSpan(
-                        text: "\t\ttoday",
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold)),
-                  ])),
-              SizedBox(
-                height: 20.0,
-              ),
-              BlocBuilder<HomeBloc, HomeState>(
-                  bloc: widget._homeBloc,
-                  builder: (ctx, state) {
-                    if (state is NotifData) {
-                      return _reminderWidget(
-                          "${DateTime.now().hour} ${DateTime.now().minute} ${DateTime.now().hour > 12 ? "pm" : "am"}",
-                          "medicine",
-                          "${state.nextTime?.inHours.toString()}:${state.nextTime?.inMinutes.toString()}:${state.nextTime?.inSeconds.toString()} mins",
-                          "assets/images/pill1.png",
-                          _appColor.purpleColor,
-                          Colors.white);
-                    } else {
-                      return _reminderWidget(
-                          "${DateTime.now().hour} ${DateTime.now().minute} ${DateTime.now().hour > 12 ? "pm" : "am"}",
-                          "medicine",
-                          "No Data",
-                          "assets/images/pill1.png",
-                          _appColor.purpleColor,
-                          Colors.white);
-                    }
-                  }),
-              SizedBox(
-                height: 12.0,
-              ),
-              _reminderWidget(
-                "${DateTime.now().hour} ${DateTime.now().minute} ${DateTime.now().hour > 12 ? "pm" : "am"}",
-                "Bactrium",
-                "45 mins",
-                "assets/images/pill2.png",
-                _appColor.pinkColor,
-                Colors.black,
-              ),
-              SizedBox(
-                height: 12.0,
-              ),
-              _reminderWidget(
-                "${DateTime.now().hour} ${DateTime.now().minute} ${DateTime.now().hour > 12 ? "pm" : "am"}",
-                "Healer",
-                "45 mins",
-                "assets/images/pill3.png",
-                _appColor.lightPurpleColor.withAlpha(90),
-                Colors.black,
-              ),
-            ]),
-      ),
-    );
   }
 
   _reminderWidget(String time, String type, String remainingTime,

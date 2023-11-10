@@ -136,7 +136,7 @@ class _AddPillScreenState extends State<AddPillScreen> {
                             pillTime: DateTime.parse(_pillDateController.text),
                             type: _selectedType)));
                     Fluttertoast.showToast(
-                        msg: "Medicine Notification Scheduled",
+                        msg: "$_selectedType Notification Scheduled",
                         toastLength: Toast.LENGTH_LONG,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
