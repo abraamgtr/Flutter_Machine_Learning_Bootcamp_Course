@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage>
     );
 
     setState(() {
-      FocusManager.instance.primaryFocus?.unfocus();
+      //FocusManager.instance.primaryFocus?.unfocus();
       inputEnabled = !inputEnabled;
       try {
         Map<String, dynamic>? responseJson = Map.from(response.data);

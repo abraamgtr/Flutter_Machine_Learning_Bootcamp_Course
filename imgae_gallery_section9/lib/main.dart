@@ -161,7 +161,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        crossAxisSpacing: 20.0),
+                                  crossAxisSpacing: 20.0,
+                                  mainAxisSpacing: 20.0,
+                                ),
                                 itemBuilder: (ctx, index) {
                                   return ClipRRect(
                                     borderRadius:
